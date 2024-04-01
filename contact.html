@@ -270,37 +270,46 @@ RIGHT SIDEBAR TOGGLE SECTION
                
             </div>
             <div class="contact-w3pvt-form mt-5 pt-lg-4">
-                <form method="post" class="w3layouts-contact-fm" action="https://sendmail.w3layouts.com/submitForm">
-                    <div class="row main-cont-sec">
-                        <div class="col-md-6 left-cont-contact">
-                            <div class="form-group mb-3">
-                                <label for="w3lName">First Name</label>
-                                <input class="form-control" type="text" name="w3lName" id="w3lName" placeholder=""
-                                    required="">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="w3lName">Last Name</label>
-                                <input class="form-control" type="text" name="w3lName" id="w3lName" placeholder=""
-                                    required="">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="w3lSender">Email</label>
-                                <input class="form-control" type="email" name="w3lSender" id="w3lSender" placeholder=""
-                                    required="">
-                            </div>
+
+
+                <div class="row main-cont-sec">
+                    <div class="col-md-6 left-cont-contact">
+                        <div class="form-group mb-3">
+                            <label for="w3lName">Name</label>
+                            <input class="form-control" type="text" name="w3lName" id="w3lName" placeholder=""
+                                required="">
                         </div>
-                        <div class="col-md-6 right-cont-contact">
-                            <div class="form-group">
-                                <label for="w3lSubject">Write Message</label>
-                                <textarea class="form-control" name="w3lMessage" id="w3lMessage" placeholder=""
-                                    required=""></textarea>
-                            </div>
+                        <div class="form-group mb-3">
+                            <label for="w3lName">Phone No.</label>
+                            <input class="form-control" type="text" name="w3lName" id="w3lPhone" placeholder=""
+                                required="">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="w3lSender">Email</label>
+                            <input class="form-control" type="email" name="w3lSender" id="w3lSender" placeholder=""
+                                required="">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="w3lSender">Date and Time</label>
+                            <input class="form-control" type="datetime-local" name="w3lSender" id="w3lDate" placeholder=""
+                                required="">
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-6 right-cont-contact">
+                        <div class="form-group">
+                            <label for="w3lSubject">Write Message</label>
+                            <textarea class="form-control" name="w3lMessage" id="w3lMessage" placeholder=""
+                                required=""></textarea>
                         </div>
                     </div>
-                    <div class="form-group-2 mt-3 text-right">
-                        <button type="submit" class="btn btn-style">Send Now</button>
-                    </div>
-                </form>
+                </div>
+                <div class="form-group-2 mt-3 text-right">
+                    <button type="submit" class="btn btn-style" onclick="save()">Send Now</button>
+                </div>
+
                 <iframe class="map-w3layouts"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d873.3185256580742!2d76.62433872164685!3d28.890201787272947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d85608451f745%3A0x47c08af7a2ce6bab!2sSiddhi%20Vinayak%20Fish%20Aquarium%20Home!5e0!3m2!1sen!2sin!4v1675000667304!5m2!1sen!2sin"
                     allowfullscreen></iframe>
@@ -383,8 +392,87 @@ RIGHT SIDEBAR TOGGLE SECTION
     <button onclick="topFunction()" id="movetop" title="Go to top">
         <span class="fa fa-level-up" aria-hidden="true"></span>
     </button>
-    <script>
-        // When the user scrolls down 20px from the top of the document, show the button
+   
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+        
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+         <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+            
+         <!-- Add Firebase products that you want to use -->
+         <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+         <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-storage.js"></script> 
+
+ <script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA_SThaNC06aCTZk33PGf4ENmrar-EK-rY",
+  authDomain: "siddhi-vinayak-fish-aquarium.firebaseapp.com",
+  databaseURL: "https://siddhi-vinayak-fish-aquarium-default-rtdb.firebaseio.com",
+  projectId: "siddhi-vinayak-fish-aquarium",
+  storageBucket: "siddhi-vinayak-fish-aquarium.appspot.com",
+  messagingSenderId: "26833673616",
+  appId: "1:26833673616:web:93ae4d9d09ebf0f5892715"
+};
+
+        // firebase.initializeApp(firebaseConfig);
+
+// Initialize Firebase
+   firebase.initializeApp(firebaseConfig);
+
+
+
+function save(){
+            name=document.getElementById("w3lName").value
+             phone=document.getElementById("w3lPhone").value
+             mail=document.getElementById("w3lSender").value
+             message=document.getElementById("w3lMessage").value
+             date=document.getElementById("w3lDate").value
+
+    const obj={
+        Name:name,
+        Phone:phone,
+        Email:mail,
+        Message:message,
+        Date_and_Time:date
+
+    }
+
+    firebase.database().ref('/Record/'+name).set(obj)
+    alert("Message Sent Succcessfully")
+    clear()
+    
+    
+    
+}
+
+
+
+function clear(){
+    document.getElementById("w3lName").value=""
+    document.getElementById("w3lPhone").value=""
+    document.getElementById("w3lSender").value=""
+    document.getElementById("w3lMessage").value=""
+    document.getElementById("w3lDate").value=""
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+ // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () {
             scrollFunction()
         };
@@ -403,6 +491,16 @@ RIGHT SIDEBAR TOGGLE SECTION
             document.documentElement.scrollTop = 0;
         }
     </script>
+
+
+
+
+
+
+
+
+
+
     <!-- //move top -->
 
     <!-- common jquery plugin -->
