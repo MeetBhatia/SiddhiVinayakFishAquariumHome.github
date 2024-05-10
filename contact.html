@@ -1,4 +1,4 @@
-<!--
+    <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
 -->
@@ -293,7 +293,7 @@ RIGHT SIDEBAR TOGGLE SECTION
                         <div class="form-group mb-3">
                             <label for="w3lSender">Date and Time</label>
                             <input class="form-control" type="datetime-local" name="w3lSender" id="w3lDate" placeholder=""
-                                required="">
+                                required="" readonly>
                         </div>
 
 
@@ -393,7 +393,17 @@ RIGHT SIDEBAR TOGGLE SECTION
         <span class="fa fa-level-up" aria-hidden="true"></span>
     </button>
    
-
+    <script>
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const hour = String(currentDate.getHours()).padStart(2, '0');
+        const minute = String(currentDate.getMinutes()).padStart(2, '0');
+    
+        const formattedDate = `${year}-${month}-${day}T${hour}:${minute}`;
+        document.getElementById("w3lDate").value = formattedDate;
+    </script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
@@ -458,7 +468,7 @@ function clear(){
     document.getElementById("w3lPhone").value=""
     document.getElementById("w3lSender").value=""
     document.getElementById("w3lMessage").value=""
-    document.getElementById("w3lDate").value=""
+    // document.getElementById("w3lDate").value=""
     
 }
 
